@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+/* body {
+  background-color: #1e2938;
+} */
+
+/* @layer components {
+
+  /* How to make the shadow not to cover its siblings?     
+  .card:hover {
+    box-shadow: 12px 12px 20px 1px;
+  }
+
+*/

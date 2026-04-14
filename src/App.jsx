@@ -2,11 +2,9 @@ import { useState } from "react";
 import Card from "./Card";
 
 function App() {
-  const [bestScore, setBestScore] = useState(0);
-
   const [scores, setScores] = useState({
     currScore: 0,
-    currBestScore: bestScore,
+    bestScore: 0,
   });
 
   const [arr, setArr] = useState([
@@ -16,24 +14,22 @@ function App() {
   function handleClick(id) {
     if (!arr.includes(id)) {
       setScores({
+        ...scores,
         currScore: 0,
-        currBestScore: 0,
       });
     } else {
       setScores((prev) => {
-        if (prev.currBestScore === bestScore) {
-          setBestScore((prev) => prev + 1);
-
+        if (prev.currScore === prev.bestScore) {
           return {
             currScore: prev.currScore + 1,
-            currBestScore: bestScore,
-          };
-        } else {
-          return {
-            currScore: prev.currScore + 1,
-            currBestScore: prev.currBestScore + 1,
+            bestScore: prev.bestScore + 1,
           };
         }
+
+        return {
+          ...scores,
+          currScore: prev.currScore + 1,
+        };
       });
 
       // remove it from arr:
@@ -42,18 +38,24 @@ function App() {
   }
 
   return (
-    <>
-      <h1 className="text-red-600">Pokémon Memory Game</h1>
-      <div>
-        <p>Score: {scores.currScore}</p>
-        <p>Best score: {bestScore}</p>
+    // min-w-1 ?
+    <div className="m-8 dark:bg-gray-800 dark:text-white">
+      <div className="flex justify-between ">
+        <h1 className="text-red-600 text-3xl">Pokémon Memory Game</h1>
+        <div>
+          <p>Score: {scores.currScore}</p>
+          <p>Best score: {scores.bestScore}</p>
+        </div>
       </div>
+      <br />
+
       <h2>
         Get points by clicking on an image but don't click on any more than
         once!
       </h2>
+      <br />
 
-      <div className="grid grid-cols-6 gap-4 m-4">
+      <div className="grid grid-cols-6 gap-4">
         <Card
           src={
             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/132.png"
@@ -151,7 +153,7 @@ function App() {
           handleClick={() => handleClick(172)}
         ></Card>
       </div>
-    </>
+    </div>
   );
 }
 
