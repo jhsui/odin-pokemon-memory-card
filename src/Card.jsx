@@ -7,14 +7,14 @@ export default function Card({ src, alt, name, handleClick }) {
       onMouseOver={(e) => {
         const img = e.currentTarget.querySelector("img");
         const color = getColorSync(img);
-        const cssColor = `rgb(${color._r}, ${color._g}, ${color._b})`;
+        const cssColor = `rgb(${color._r}, ${color._g}, ${color._b}, 0.75)`;
 
-        e.currentTarget.style.boxShadow = `12px 12px 20px 1px ${cssColor}`;
+        e.currentTarget.style.boxShadow = `15px 15px 10px 5px ${cssColor}`;
+        e.currentTarget.style.transition = "box-shadow 0.3s ease";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = ``;
       }}
-      // why doesn't the color apply?
       className="group"
     >
       <div className="flex flex-col items-center gap-5 border border-amber-700">
