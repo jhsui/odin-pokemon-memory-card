@@ -1,18 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card";
-import data from "./data.json";
+
+import dataName from "./data-name-only.json";
 
 function App() {
+  const [cards, setCards] = useState([]);
+  const [arr, setArr] = useState([]);
+
+  useEffect(() => {
+    const linkPrefix = "https://pokeapi.co/api/v2/pokemon/";
+
+    async function fetchData() {
+      const arrFetched = await Promise.all(
+        dataName.map(async (item) => {
+          try {
+            const response = await fetch(`${linkPrefix}${item.name}`);
+
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status} for ${item.name}`);
+            }
+
+            const pokemon = await response.json();
+
+            const pokemonName =
+              pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+
+            return {
+              id: pokemon.id,
+              name: pokemonName,
+              src: pokemon.sprites.versions["generation-viii"][
+                "brilliant-diamond-shining-pearl"
+              ].front_default,
+              alt: `image of ${pokemonName}`,
+            };
+          } catch (error) {
+            console.log(error);
+            return null;
+          }
+        }),
+      );
+
+      // make the page still could show the rest
+      setCards(arrFetched.filter(Boolean));
+      setArr(arrFetched.filter(Boolean).map((item) => item.id));
+    }
+
+    fetchData();
+  }, []);
+
   const [scores, setScores] = useState({
     currScore: 0,
     bestScore: 0,
   });
-
-  const initialArr = data.map((item) => item.id);
-  // const initialArr = [132, 151, 94, 104, 133, 95, 131, 144, 145, 146, 253, 172];
-  const [arr, setArr] = useState(initialArr);
-
-  const [cards, setCards] = useState(data);
 
   const [isGameOver, setIsGameOver] = useState(false);
 
@@ -27,7 +66,7 @@ function App() {
         currScore: 0,
       });
 
-      setArr(initialArr);
+      setArr(cards.map((item) => item.id));
       return;
     }
 
@@ -47,7 +86,6 @@ function App() {
       };
     });
 
-    // remove it from arr:
     setArr(newArr);
 
     if (newArr.length === 0) {
