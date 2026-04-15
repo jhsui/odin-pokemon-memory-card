@@ -1,15 +1,14 @@
 import { useState } from "react";
 import Card from "./Card";
+import data from "./data.json";
 
 function App() {
   const [scores, setScores] = useState({
     currScore: 0,
     bestScore: 0,
   });
-
-  const [arr, setArr] = useState([
-    132, 151, 94, 104, 133, 95, 131, 144, 145, 146, 253, 172,
-  ]);
+  const initialArr = [132, 151, 94, 104, 133, 95, 131, 144, 145, 146, 253, 172];
+  const [arr, setArr] = useState(initialArr);
 
   function handleClick(id) {
     if (!arr.includes(id)) {
@@ -17,6 +16,8 @@ function App() {
         ...scores,
         currScore: 0,
       });
+
+      setArr(initialArr);
     } else {
       setScores((prev) => {
         if (prev.currScore === prev.bestScore) {
@@ -35,10 +36,32 @@ function App() {
       // remove it from arr:
       setArr(arr.filter((e) => e !== id));
     }
+
+    shuffle(data);
+  }
+
+  // Source - https://stackoverflow.com/a/2450976
+  // Posted by ChristopheD, modified by community. See post 'Timeline' for change history
+  // Retrieved 2026-04-15, License - CC BY-SA 4.0
+
+  function shuffle(array) {
+    let currentIndex = array.length;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
   }
 
   return (
-    // min-w-1 ?
     <div className="m-8 dark:bg-gray-800 dark:text-white">
       <div className="flex justify-between ">
         <h1 className="text-red-600 text-3xl">Pokémon Memory Game</h1>
@@ -47,111 +70,22 @@ function App() {
           <p>Best score: {scores.bestScore}</p>
         </div>
       </div>
-      <br />
 
-      <h2>
+      <h2 className="mt-6 mb-6">
         Get points by clicking on an image but don't click on any more than
         once!
       </h2>
-      <br />
 
       <div className="grid grid-cols-6 gap-4">
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/132.png"
-          }
-          name={"Ditto"}
-          alt={"image of Ditto"}
-          handleClick={() => handleClick(132)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/151.png"
-          }
-          name={"Mew"}
-          alt={"image of Mew"}
-          handleClick={() => handleClick(151)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/94.png"
-          }
-          name={"Gengar"}
-          alt={"image of Gengar"}
-          handleClick={() => handleClick(94)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/104.png"
-          }
-          name={"Cubone"}
-          alt={"image of Cubone"}
-          handleClick={() => handleClick(104)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/133.png"
-          }
-          name={"Eevee"}
-          alt={"image of Eevee"}
-          handleClick={() => handleClick(133)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/95.png"
-          }
-          name={"Onix"}
-          alt={"image of Onix"}
-          handleClick={() => handleClick(95)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/131.png"
-          }
-          name={"Lapras"}
-          alt={"image of Lapras"}
-          handleClick={() => handleClick(131)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/144.png"
-          }
-          name={"Articuno"}
-          alt={"image of Articuno"}
-          handleClick={() => handleClick(144)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/145.png"
-          }
-          name={"Zapdos"}
-          alt={"image of Zapdos"}
-          handleClick={() => handleClick(145)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/146.png"
-          }
-          name={"Moltres"}
-          alt={"image of Moltres"}
-          handleClick={() => handleClick(146)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/253.png"
-          }
-          name={"Grovyle"}
-          alt={"image of Grovyle"}
-          handleClick={() => handleClick(253)}
-        ></Card>
-        <Card
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/172.png"
-          }
-          name={"Pichu"}
-          alt={"image of Pichu"}
-          handleClick={() => handleClick(172)}
-        ></Card>
+        {data.map((item) => (
+          <Card
+            key={item.id}
+            src={item.src}
+            name={item.name}
+            alt={item.alt}
+            handleClick={() => handleClick(item.id)}
+          />
+        ))}
       </div>
     </div>
   );

@@ -1,0 +1,74 @@
+[
+  {
+    "id": 132,
+    "name": "Ditto",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/132.png",
+    "alt": "image of Ditto"
+  },
+  {
+    "id": 151,
+    "name": "Mew",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/151.png",
+    "alt": "image of Mew"
+  },
+  {
+    "id": 94,
+    "name": "Gengar",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/94.png",
+    "alt": "image of Gengar"
+  },
+  {
+    "id": 104,
+    "name": "Cubone",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/104.png",
+    "alt": "image of Cubone"
+  },
+  {
+    "id": 133,
+    "name": "Eevee",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/133.png",
+    "alt": "image of Eevee"
+  },
+  {
+    "id": 95,
+    "name": "Onix",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/95.png",
+    "alt": "image of Onix"
+  },
+  {
+    "id": 131,
+    "name": "Lapras",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/131.png",
+    "alt": "image of Lapras"
+  },
+  {
+    "id": 144,
+    "name": "Articuno",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/144.png",
+    "alt": "image of Articuno"
+  },
+  {
+    "id": 145,
+    "name": "Zapdos",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/145.png",
+    "alt": "image of Zapdos"
+  },
+  {
+    "id": 146,
+    "name": "Moltres",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/146.png",
+    "alt": "image of Moltres"
+  },
+  {
+    "id": 253,
+    "name": "Grovyle",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/253.png",
+    "alt": "image of Grovyle"
+  },
+  {
+    "id": 172,
+    "name": "Pichu",
+    "src": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/brilliant-diamond-shining-pearl/172.png",
+    "alt": "image of Pichu"
+  }
+]
