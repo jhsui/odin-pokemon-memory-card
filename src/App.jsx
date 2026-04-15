@@ -41,8 +41,9 @@ function App() {
       );
 
       // make the page still could show the rest
-      setCards(arrFetched.filter(Boolean));
-      setArr(arrFetched.filter(Boolean).map((item) => item.id));
+      const validCards = arrFetched.filter(Boolean);
+      setCards(validCards);
+      setArr(validCards.map((item) => item.id));
     }
 
     fetchData();
@@ -67,6 +68,7 @@ function App() {
       });
 
       setArr(cards.map((item) => item.id));
+      setCards((prev) => shuffle([...prev]));
       return;
     }
 
