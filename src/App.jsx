@@ -7,10 +7,20 @@ function App() {
     currScore: 0,
     bestScore: 0,
   });
-  const initialArr = [132, 151, 94, 104, 133, 95, 131, 144, 145, 146, 253, 172];
+
+  const initialArr = data.map((item) => item.id);
+  // const initialArr = [132, 151, 94, 104, 133, 95, 131, 144, 145, 146, 253, 172];
   const [arr, setArr] = useState(initialArr);
 
+  const [cards, setCards] = useState(data);
+
+  const [isGameOver, setIsGameOver] = useState(false);
+
   function handleClick(id) {
+    if (isGameOver) {
+      return;
+    }
+
     if (!arr.includes(id)) {
       setScores({
         ...scores,
@@ -18,26 +28,33 @@ function App() {
       });
 
       setArr(initialArr);
-    } else {
-      setScores((prev) => {
-        if (prev.currScore === prev.bestScore) {
-          return {
-            currScore: prev.currScore + 1,
-            bestScore: prev.bestScore + 1,
-          };
-        }
-
-        return {
-          ...scores,
-          currScore: prev.currScore + 1,
-        };
-      });
-
-      // remove it from arr:
-      setArr(arr.filter((e) => e !== id));
+      return;
     }
 
-    shuffle(data);
+    const newArr = arr.filter((e) => e !== id);
+
+    setScores((prev) => {
+      if (prev.currScore === prev.bestScore) {
+        return {
+          currScore: prev.currScore + 1,
+          bestScore: prev.bestScore + 1,
+        };
+      }
+
+      return {
+        ...scores,
+        currScore: prev.currScore + 1,
+      };
+    });
+
+    // remove it from arr:
+    setArr(newArr);
+
+    if (newArr.length === 0) {
+      setIsGameOver(true);
+    } else {
+      setCards((prev) => shuffle([...prev]));
+    }
   }
 
   // Source - https://stackoverflow.com/a/2450976
@@ -59,6 +76,8 @@ function App() {
         array[currentIndex],
       ];
     }
+
+    return array;
   }
 
   return (
@@ -77,7 +96,7 @@ function App() {
       </h2>
 
       <div className="grid grid-cols-6 gap-4">
-        {data.map((item) => (
+        {cards.map((item) => (
           <Card
             key={item.id}
             src={item.src}
@@ -87,6 +106,13 @@ function App() {
           />
         ))}
       </div>
+
+      {isGameOver ? (
+        <>
+          <p className="mt-8">You win!</p>
+          <p className="mt-6"> Refresh to play again.</p>
+        </>
+      ) : null}
     </div>
   );
 }
