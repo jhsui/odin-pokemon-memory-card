@@ -5,7 +5,15 @@ import dataName from "./data-name-only.json";
 
 function App() {
   const [cards, setCards] = useState([]);
+
   const [arr, setArr] = useState([]);
+
+  const [scores, setScores] = useState({
+    currScore: 0,
+    bestScore: 0,
+  });
+
+  const [isGameOver, setIsGameOver] = useState(false);
 
   useEffect(() => {
     const linkPrefix = "https://pokeapi.co/api/v2/pokemon/";
@@ -49,18 +57,12 @@ function App() {
     fetchData();
   }, []);
 
-  const [scores, setScores] = useState({
-    currScore: 0,
-    bestScore: 0,
-  });
-
-  const [isGameOver, setIsGameOver] = useState(false);
-
   function handleClick(id) {
     if (isGameOver) {
       return;
     }
 
+    // click twice, oops
     if (!arr.includes(id)) {
       setScores({
         ...scores,
@@ -73,6 +75,7 @@ function App() {
     }
 
     const newArr = arr.filter((e) => e !== id);
+    setArr(newArr);
 
     setScores((prev) => {
       if (prev.currScore === prev.bestScore) {
@@ -83,12 +86,10 @@ function App() {
       }
 
       return {
-        ...scores,
+        ...prev,
         currScore: prev.currScore + 1,
       };
     });
-
-    setArr(newArr);
 
     if (newArr.length === 0) {
       setIsGameOver(true);
